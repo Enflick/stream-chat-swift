@@ -12,6 +12,7 @@ extension StreamChatWrapper {
         if AppConfig.shared.demoAppConfig.isLocationAttachmentsEnabled {
             Components.default.mixedAttachmentInjector.register(.location, with: LocationAttachmentViewInjector.self)
         }
+        Components.default.attachmentViewCatalog = MyAttachmentViewCatalog.self
 
         // Set the log level
         LogConfig.level = StreamRuntimeCheck.logLevel ?? .warning
