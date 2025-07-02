@@ -26,10 +26,25 @@ final class DemoChatChannelVC: ChatChannelVC, UIGestureRecognizerDelegate {
         return indicator
     }()
 
+    lazy var bannerAdView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .blue
+        return view
+    }()
+
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        view.addSubview(bannerAdView)
+        NSLayoutConstraint.activate([
+            bannerAdView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            bannerAdView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            bannerAdView.topAnchor.constraint(equalTo: messageListVC.view.topAnchor),
+            bannerAdView.heightAnchor.constraint(equalToConstant: 80.0),
+        ])
 
         let debugButton = UIBarButtonItem(
             image: UIImage(systemName: "ladybug.fill")!,
