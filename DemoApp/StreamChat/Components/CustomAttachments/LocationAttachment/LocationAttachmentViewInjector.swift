@@ -9,29 +9,39 @@ import UIKit
 class LocationAttachmentViewInjector: AttachmentViewInjector {
     lazy var locationAttachmentView = LocationAttachmentSnapshotView()
 
-    var locationAttachment: ChatMessageLocationAttachment? {
-        attachments(payloadType: LocationAttachmentPayload.self).first
-    }
+    let mapWidth: CGFloat = 300
 
     override func contentViewDidLayout(options: ChatMessageLayoutOptions) {
         super.contentViewDidLayout(options: options)
 
         contentView.bubbleContentContainer.insertArrangedSubview(locationAttachmentView, at: 0)
-
-        NSLayoutConstraint.activate([
-            locationAttachmentView.widthAnchor.constraint(equalToConstant: 250),
-            locationAttachmentView.heightAnchor.constraint(equalToConstant: 150)
-        ])
+        contentView.bubbleThreadFootnoteContainer.width(mapWidth)
 
         locationAttachmentView.didTapOnLocation = { [weak self] in
             self?.handleTapOnLocationAttachment()
         }
+        locationAttachmentView.didTapOnStopSharingLocation = { [weak self] in
+            self?.handleTapOnStopSharingLocation()
+        }
+
+        let isSentByCurrentUser = contentView.content?.isSentByCurrentUser == true
+        let maskedCorners: CACornerMask = isSentByCurrentUser
+            ? [.layerMinXMaxYCorner, .layerMinXMinYCorner]
+            : [.layerMinXMinYCorner, .layerMaxXMaxYCorner, .layerMaxXMinYCorner]
+        locationAttachmentView.layer.maskedCorners = maskedCorners
+        locationAttachmentView.layer.cornerRadius = 16
+        locationAttachmentView.layer.masksToBounds = true
     }
 
     override func contentViewDidUpdateContent() {
         super.contentViewDidUpdateContent()
 
-        locationAttachmentView.coordinate = locationAttachment?.coordinate
+        if let message = contentView.content, let location = message.sharedLocation {
+            locationAttachmentView.content = .init(
+                message: message,
+                location: location
+            )
+        }
     }
 
     func handleTapOnLocationAttachment() {
@@ -39,10 +49,22 @@ class LocationAttachmentViewInjector: AttachmentViewInjector {
             return
         }
 
-        guard let locationAttachment = self.locationAttachment else {
+        guard let location = contentView.content?.sharedLocation else {
             return
         }
 
-        locationAttachmentDelegate.didTapOnLocationAttachment(locationAttachment)
+        locationAttachmentDelegate.didTapOnLocation(location)
+    }
+
+    func handleTapOnStopSharingLocation() {
+        guard let locationAttachmentDelegate = contentView.delegate as? LocationAttachmentViewDelegate else {
+            return
+        }
+
+        guard let location = contentView.content?.sharedLocation else {
+            return
+        }
+
+        locationAttachmentDelegate.didTapOnStopSharingLocation(location)
     }
 }

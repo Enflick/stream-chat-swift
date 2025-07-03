@@ -14,8 +14,6 @@ struct DemoAppConfig {
     var isAtlantisEnabled: Bool
     /// A Boolean value to define if an additional message debugger action will be added.
     var isMessageDebuggerEnabled: Bool
-    /// A Boolean value to define if custom location attachments are enabled.
-    var isLocationAttachmentsEnabled: Bool
     /// Set this value to define if we should mimic token refresh scenarios.
     var tokenRefreshDetails: TokenRefreshDetails?
     /// A Boolean value that determines if a connection banner UI should be shown.
@@ -51,7 +49,6 @@ class AppConfig {
             isHardDeleteEnabled: false,
             isAtlantisEnabled: false,
             isMessageDebuggerEnabled: false,
-            isLocationAttachmentsEnabled: false,
             tokenRefreshDetails: nil,
             shouldShowConnectionBanner: false,
             isPremiumMemberFeatureEnabled: false,
@@ -62,8 +59,6 @@ class AppConfig {
         if StreamRuntimeCheck.isStreamInternalConfiguration {
             demoAppConfig.isAtlantisEnabled = true
             demoAppConfig.isMessageDebuggerEnabled = true
-            demoAppConfig.isLocationAttachmentsEnabled = true
-            demoAppConfig.isLocationAttachmentsEnabled = true
             demoAppConfig.isHardDeleteEnabled = true
             demoAppConfig.shouldShowConnectionBanner = true
             demoAppConfig.isPremiumMemberFeatureEnabled = true
@@ -177,7 +172,6 @@ class AppConfigViewController: UITableViewController {
         case isHardDeleteEnabled
         case isAtlantisEnabled
         case isMessageDebuggerEnabled
-        case isLocationAttachmentsEnabled
         case tokenRefreshDetails
         case shouldShowConnectionBanner
         case isPremiumMemberFeatureEnabled
@@ -327,10 +321,6 @@ class AppConfigViewController: UITableViewController {
         case .isMessageDebuggerEnabled:
             cell.accessoryView = makeSwitchButton(demoAppConfig.isMessageDebuggerEnabled) { [weak self] newValue in
                 self?.demoAppConfig.isMessageDebuggerEnabled = newValue
-            }
-        case .isLocationAttachmentsEnabled:
-            cell.accessoryView = makeSwitchButton(demoAppConfig.isLocationAttachmentsEnabled) { [weak self] newValue in
-                self?.demoAppConfig.isLocationAttachmentsEnabled = newValue
             }
         case .tokenRefreshDetails:
             if let tokenRefreshDuration = demoAppConfig.tokenRefreshDetails?.expirationDuration {
