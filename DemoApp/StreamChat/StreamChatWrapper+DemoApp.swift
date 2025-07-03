@@ -9,6 +9,8 @@ import StreamChatUI
 extension StreamChatWrapper {
     // Instantiates chat client
     func setUpChat() {
+        Components.default.attachmentViewCatalog = MyAttachmentViewCatalog.self
+
         // Set the log level
         LogConfig.level = StreamRuntimeCheck.logLevel ?? .warning
         LogConfig.formatters = [
