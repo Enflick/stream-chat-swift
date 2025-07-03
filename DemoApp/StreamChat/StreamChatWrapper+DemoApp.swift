@@ -5,6 +5,7 @@
 import Foundation
 import StreamChat
 import StreamChatUI
+import UIKit
 
 extension StreamChatWrapper {
     // Instantiates chat client
@@ -78,6 +79,8 @@ extension StreamChatWrapper {
          defaultFormatter.styles.h6Font.color = .systemPink
          Appearance.default.formatters.markdownFormatter = defaultFormatter
          */
+
+        Appearance.default.colorPalette.alert = UIColor(named: "TextNowPurple")!
     }
 }
 
