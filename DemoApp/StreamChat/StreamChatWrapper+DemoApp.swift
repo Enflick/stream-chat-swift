@@ -5,10 +5,13 @@
 import Foundation
 import StreamChat
 import StreamChatUI
+import UIKit
 
 extension StreamChatWrapper {
     // Instantiates chat client
     func setUpChat() {
+        Components.default.attachmentViewCatalog = MyAttachmentViewCatalog.self
+
         // Set the log level
         LogConfig.level = StreamRuntimeCheck.logLevel ?? .warning
         LogConfig.formatters = [
@@ -76,6 +79,8 @@ extension StreamChatWrapper {
          defaultFormatter.styles.h6Font.color = .systemPink
          Appearance.default.formatters.markdownFormatter = defaultFormatter
          */
+
+        Appearance.default.colorPalette.alert = UIColor(named: "TextNowPurple")!
     }
 }
 

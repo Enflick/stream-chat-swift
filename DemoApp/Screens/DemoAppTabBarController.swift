@@ -73,14 +73,15 @@ class DemoAppTabBarController: UITabBarController, CurrentChatUserControllerDele
 
         tabBar.backgroundColor = Appearance.default.colorPalette.background
         tabBar.isTranslucent = true
+        tabBar.tintColor = UIColor(named: "TextNowPurple")
 
         channelListVC.tabBarItem.title = "Channels"
         channelListVC.tabBarItem.image = UIImage(systemName: "message")
-        channelListVC.tabBarItem.badgeColor = .red
+        channelListVC.tabBarItem.badgeColor = UIColor(named: "TextNowPurple")
 
         threadListVC.tabBarItem.title = "Threads"
         threadListVC.tabBarItem.image = UIImage(systemName: "text.bubble")
-        threadListVC.tabBarItem.badgeColor = .red
+        threadListVC.tabBarItem.badgeColor = UIColor(named: "TextNowPurple")
 
         locationProvider.didUpdateLocation = { [weak self] location in
             let newLocation = LocationInfo(

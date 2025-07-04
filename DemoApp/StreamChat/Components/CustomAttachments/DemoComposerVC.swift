@@ -34,6 +34,18 @@ class DemoComposerVC: ComposerVC {
         
         present(navigationController, animated: true)
     }
+
+    override func publishMessage(sender: UIButton) {
+        print(">> we are sending a message")
+
+        super.publishMessage(sender: sender)
+    }
+
+    override func inputTextView(_ inputTextView: InputTextView, didPasteImage image: UIImage) {
+        print(">> we pasted an image of size \(image.size)")
+
+        super.inputTextView(inputTextView, didPasteImage: image)
+    }
 }
 
 class DemoInputTextView: InputTextView {
