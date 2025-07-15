@@ -23,6 +23,11 @@ class DemoComposerVC: ComposerVC {
             actions.append(locationAction)
         }
 
+        // obviously localize, or override channel configs.
+        if let pollIndex = actions.firstIndex(where: { $0.title == "Create Poll" }) {
+            actions.remove(at: pollIndex)
+        }
+
         return actions
     }
 
