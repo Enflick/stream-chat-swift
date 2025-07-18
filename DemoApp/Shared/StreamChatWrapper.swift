@@ -37,6 +37,7 @@ final class StreamChatWrapper {
         config.shouldShowShadowedMessages = true
         config.applicationGroupIdentifier = applicationGroupIdentifier
         config.urlSessionConfiguration.httpAdditionalHeaders = ["Custom": "Example"]
+        config.baseURL = BaseURL(url: URL(string: "http://127.0.0.1:54929")!, forceInsecure: true)
 
         let apiKey = DemoApiKeys(rawValue: apiKeyString)
         if let baseURL = apiKey.customBaseURL {

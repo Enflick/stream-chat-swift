@@ -37,7 +37,7 @@ public struct BaseURL: CustomStringConvertible {
     /// Init with a custom server URL.
     ///
     /// - Parameter url: an URL
-    public init(url: URL) {
+    public init(url: URL, forceInsecure: Bool = false) {
         var urlString = url.absoluteString
 
         // Remove a scheme prefix.
@@ -63,8 +63,8 @@ public struct BaseURL: CustomStringConvertible {
         }
         #endif
 
-        restAPIBaseURL = URL(string: "https://\(urlString)/")!
-        webSocketBaseURL = URL(string: "wss://\(urlString)/")!
+        restAPIBaseURL = URL(string: "\(forceInsecure ? "http" : "https")://\(urlString)/")!
+        webSocketBaseURL = URL(string: "\(forceInsecure ? "ws" : "wss")://\(urlString)/")!
     }
 }
 
